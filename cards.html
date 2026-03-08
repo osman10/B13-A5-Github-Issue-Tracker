@@ -21,19 +21,24 @@
 
 <body class="bg-[#f8fafc]">
     <header>
-        <div class="flex flex-wrap items-center justify-between border-b-2 border-gray-200 p-6">
+        <div
+            class="flex flex-wrap items-center justify-center gap-3 md:justify-between border-b-2 border-gray-200 p-6 max-w-[1110px] mx-auto">
             <div class="flex items-center gap-1">
                 <img src="./assets/github-logo.png" alt="GitHub" class="h-9 w-9">
                 <h1 class="font-semibold text-2xl">GitHub Issues Tracker</h1>
             </div>
             <div class="flex gap-2">
+
                 <div class="flex items-center px-2 rounded-md shadow border border-gray-200">
-                    <span class="text-gray-400 font-bold text-2xl p-1"><i class="fa-brands fa-sistrix"></i></span>
-                    <input class="focus:outline-none" type="text" placeholder="Search Issues..." class="">
+                    <span class="text-gray-400 font-bold text-2xl p-1">
+                        <i class="fa-brands fa-sistrix"></i>
+                    </span>
+                    <input id="searchInput" class="focus:outline-none" type="text" placeholder="Search Issues...">
                 </div>
-                <button
+
+               <button
                     class="inline-flex items-center justify-center bg-[#4A00FF] text-white text-base font-bold rounded-md cursor-pointer hover:bg-[#3906b9] transition px-4 py-2">
-                    + New Issue
+                    Search
                 </button>
             </div>
         </div>
@@ -42,9 +47,9 @@
     <section>
         <div class="bg-white p-6 rounded-md shadow-md mt-10 max-w-[1110px] mx-auto">
             <div class="flex flex-wrap items-center gap-2">
-                <button onclick="showJobCards()" class="w-full sm:max-w-[100px] catagoryBtn active">All</button>
-                <button onclick="showJobCards()" class="w-full sm:max-w-[100px] catagoryBtn">Open</button>
-                <button onclick="showJobCards()" class="w-full sm:max-w-[100px] catagoryBtn">Closed</button>
+                <button onclick="showJobCards('all')" class="w-full sm:max-w-[100px] catagoryBtn active">All</button>
+                <button onclick="showJobCards('open')" class="w-full sm:max-w-[100px] catagoryBtn">Open</button>
+                <button onclick="showJobCards('close')" class="w-full sm:max-w-[100px] catagoryBtn">Closed</button>
             </div>
         </div>
     </section>
@@ -58,7 +63,7 @@
                         <img class="h-[30px] w-[30px]" src="./assets/Aperture.png" alt="">
                     </div>
                     <div>
-                        <h2 class="font-bold text-xl">50 Issues</h2>
+                        <h2 class="font-bold text-xl"><span id="jobCount">0</span> Issues</h2>
                         <p class="text-gray-400">Track and manage your project issues</p>
                     </div>
                 </div>
@@ -78,19 +83,19 @@
     </section>
 
     <!-- loading section -->
-     <div id="loading" class="block" >
+    <div id="loading" class="block">
         <div class="flex h-[100px] w-full  flex-col justify-center items-center">
-        <img class="h-[50px] w-[50px]" src="./assets/loading.gif" alt="loading">
-        <p class="text-gray-500">Loading data...</p>
+            <img class="h-[50px] w-[50px]" src="./assets/loading.gif" alt="loading">
+            <p class="text-gray-500">Loading data...</p>
         </div>
-     </div>
+    </div>
 
 
 
 
     <!-- card section -->
     <section>
-        <div class="p-6 max-w-[1110px] mx-auto">
+        <div class="p-6 max-w-[1110px] mx-auto bg-white">
             <div id="cartContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             </div>
         </div>
