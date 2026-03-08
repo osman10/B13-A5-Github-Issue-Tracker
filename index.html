@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Issues Tracker</title>
+  <!-- tailwind css -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- google fonts -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet" />
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/fontawesome.min.css"
+    integrity="sha512-M5Kq4YVQrjg5c2wsZSn27Dkfm/2ALfxmun0vUE3mPiJyK53hQBHYCVAtvMYEC7ZXmYLg8DVG4tF8gD27WmDbsg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- main style -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="bg-[#f8fafc] w-screen h-screen flex items-center justify-center">
+    <div class="sm:min-w-[32.5rem] shadow-md bg-white rounded-md p-8 m-2">
+      <!-- heading & logo -->
+      <div class="flex flex-col items-center justify-center mb-6">
+        <img src="./assets/github-logo.png" alt="GitHub Issues Traker" class="h-[6.25rem] w-[6.25rem] mb-6">
+        <h1 class="font-semibold text-2xl text-center text-[#1F2937]">GitHub Issues Tracker</h1>
+        <p class="text-[#64748B] text-base text-center">Sign in to manages your issues</p>
+      </div>
+      <!-- forms -->
+    <form id="loginForm">
+      <label class="text-base font-semibold text-[#1F2937]" for="username">Username</label><br>
+      <input type="text" id="username" name="username" placeholder="Enter Username"
+        class="mb-2 mt-1 p-3 rounded-md w-full shadow border border-gray-200">
+      <p class="text-[#4A00FF]">Default: admin</p><br>
+
+      <label class="text-base font-semibold text-[#1F2937]" for="password">Password</label><br>
+      <input type="password" id="password" name="password" placeholder="Enter Password"
+        class="mb-2 mt-1 p-3 rounded-md w-full shadow border border-gray-200">
+      <p class="text-[#4A00FF]">Default: admin123</p><br>
+
+      <button class="w-full bg-[#4A00FF] text-white text-base font-bold p-3 rounded-md cursor-pointer hover:bg-[#3906b9] transition" type="submit">
+        Sign In
+      </button>
+
+      <p id="error" class="text-red-500 mt-3 hidden">Invalid username or password</p>
+    </form>
+
+    <!-- OR Divider -->
+    <div class="flex items-center my-4">
+      <div class="flex-grow border-t border-gray-300"></div>
+      <span class="mx-3 text-gray-500 text-md">OR</span>
+      <div class="flex-grow border-t border-gray-300"></div>
+    </div>
+
+    <!-- Demo Credentials -->
+    <div class="mt-4">
+      <p class="text-center text-gray-500 mb-3">Demo Credentials:</p>
+      <div class="flex flex-col items-center justify-center text-center p-4 rounded-md bg-gray-200">
+        <p class="text-shadow-gray-700"><span class="font-bold">Username:</span> admin</p>
+        <p class="text-shadow-gray-700"><span class="font-bold">Password:</span> admin123</p>
+      </div>
+    </div>
+
+    </div>
+  </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/fontawesome.min.js"
+    integrity="sha512-obFNtQ1JKCrxPBPLmYDUevlriATl5EhvwU3CFtdW/HKOkeAe0bbsyZfHO44/f1QyndrZJ464TQvrRP9ZjyXSSA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

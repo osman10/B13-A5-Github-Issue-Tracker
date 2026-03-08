@@ -1,0 +1,16 @@
+@import "tailwindcss";
+body {
+  font-family: "Inter", sans-serif;
+}
+
+.catagoryBtn {
+  padding: 8px;
+  border: 1px solid gray;
+  font-weight: bold;
+  border-radius: 5px;
+}
+.catagoryBtn:hover,
+.catagoryBtn.active {
+  background: #4a00ff;
+  color: white;
+}
