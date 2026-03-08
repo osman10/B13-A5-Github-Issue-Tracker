@@ -11,6 +11,10 @@ buttons.forEach((button) => {
 
 // fetch data from server
 async function fetchData() {
+  // show loading
+  let loading = document.getElementById("loading");
+  loading.style.display = "block"; // show loading
+
   try {
     const response = await fetch(
       "https://phi-lab-server.vercel.app/api/v1/lab/issues",
@@ -79,5 +83,8 @@ async function fetchData() {
   } catch (error) {
     console.error(error);
   }
+    // hide loading
+  loading = document.getElementById("loading");
+  loading.style.display = "none"; // show loading
 }
 fetchData();
