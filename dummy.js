@@ -1,13 +1,20 @@
+const buttons = document.querySelectorAll(".catagoryBtn");
+buttons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    buttons.forEach((btn) => btn.classList.remove("active"));
+    event.currentTarget.classList.add("active");
+  });
+});
+
 async function fetchData() {
-// loading state
   let loading = document.getElementById("loading");
   loading.style.display = "block";
 
   try {
     const response = await fetch(
-      "https://phi-lab-server.vercel.app/api/v1/lab/issues"
+      "https://phi-lab-server.vercel.app/api/v1/lab/issues",
     );
-
+    
     const jsonData = await response.json();
     allIssues = jsonData.data;
 
@@ -18,25 +25,24 @@ async function fetchData() {
 
   loading.style.display = "none";
 }
-
 fetchData();
 
+
+
 function showJobCards(category) {
-  const cartContainer = document.getElementById("cartContainer");
+  const cardContainer = document.getElementById("cardContainer");
   const jobCount = document.getElementById("jobCount");
 
-  cartContainer.innerHTML = "";
+  cardContainer.innerHTML = "";
 
   let filteredData = [];
-
+ 
   if (category === "all") {
     filteredData = allIssues;
-  } 
-  else if (category === "open") {
-    filteredData = allIssues.filter(item => item.priority !== "low");
-  } 
-  else if (category === "close") {
-    filteredData = allIssues.filter(item => item.priority === "low");
+  } else if (category === "open") {
+    filteredData = allIssues.filter((item) => item.priority !== "low");
+  } else if (category === "close") {
+    filteredData = allIssues.filter((item) => item.priority === "low");
   }
 
   jobCount.innerText = filteredData.length;
@@ -63,8 +69,8 @@ function showJobCards(category) {
             item.priority === "low"
               ? "bg-gray-200 text-gray-400"
               : item.priority === "medium"
-              ? "bg-yellow-200 text-yellow-400"
-              : "bg-red-100 text-red-400"
+                ? "bg-yellow-200 text-yellow-400"
+                : "bg-red-100 text-red-400"
           }">
           ${item.priority}
           </p>
@@ -108,15 +114,15 @@ function showJobCards(category) {
     </div>
     `;
 
-    cartContainer.appendChild(div);
+    cardContainer.appendChild(div);
   });
 }
 
-const buttons = document.querySelectorAll(".catagoryBtn");
 
-buttons.forEach((button) => {
-  button.addEventListener("click", (event) => {
-    buttons.forEach((btn) => btn.classList.remove("active"));
-    event.currentTarget.classList.add("active");
-  });
-});
+
+
+
+
+
+
+
