@@ -6,7 +6,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
   const password = document.getElementById("password").value;
 
   if (username === "admin" && password === "admin123") {
-    window.location.href = "./cards.html"; // redirect
+    window.location.href = "./cards/cards.html"; // redirect
   } else {
     document.getElementById("error").classList.remove("hidden");
   }

@@ -14,7 +14,7 @@ async function fetchData() {
     const response = await fetch(
       "https://phi-lab-server.vercel.app/api/v1/lab/issues",
     );
-    
+
     const jsonData = await response.json();
     allIssues = jsonData.data;
 
@@ -27,6 +27,7 @@ async function fetchData() {
 }
 fetchData();
 
+
 function showJobCards(category) {
   const cardContainer = document.getElementById("cardContainer");
   const jobCount = document.getElementById("jobCount");
@@ -34,7 +35,7 @@ function showJobCards(category) {
   cardContainer.innerHTML = "";
 
   let filteredData = [];
- 
+
   if (category === "all") {
     filteredData = allIssues;
   } else if (category === "open") {
@@ -116,7 +117,6 @@ function showJobCards(category) {
   });
 }
 
-
 // add search function--------------------------------------------------------------------------------------------------------------------------------
 document.getElementById("searchBtn").addEventListener("click", handleSearch);
 
@@ -132,15 +132,15 @@ function handleSearch() {
   cardContainer.innerHTML = "";
 
   const filtered = allIssues.filter((item) =>
-    item.title.toLowerCase().includes(searchValue)
+    item.title.toLowerCase().includes(searchValue),
   );
 
   jobCount.innerText = filtered.length;
 
   filtered.forEach((item) => {
-  const div = document.createElement("div");
-  
-   div.innerHTML = `
+    const div = document.createElement("div");
+
+    div.innerHTML = `
     <div onclick="showModal(${item.id})"  class="border-t-3 ${
       item.priority === "low" ? "border-violet-500" : "border-green-500"
     } rounded-md shadow-sm bg-white">
@@ -208,29 +208,28 @@ function handleSearch() {
 }
 
 // if press enter key (optional)
-    document.getElementById("searchInput").addEventListener("keypress", function (e) {
+document
+  .getElementById("searchInput")
+  .addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
       handleSearch();
     }
   });
 
-
-
 // function for modal
 async function showModal(id) {
-  let res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
+  let res = await fetch(
+    `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`,
+  );
   let data = await res.json();
   let item = data.data;
-  
+
   const modalContainer = document.getElementById("modalContainer");
 
-  
-let statusBadge =
-  item.status?.toLowerCase().trim() === "open"
-    ? `<p class="text-white bg-green-600 px-2 rounded-full font-semibold">Open</p>`
-    : `<p class="text-white bg-red-600 px-2 rounded-full font-semibold">Closed</p>`;
-
-
+  let statusBadge =
+    item.status?.toLowerCase().trim() === "open"
+      ? `<p class="text-white bg-green-600 px-2 rounded-full font-semibold">Open</p>`
+      : `<p class="text-white bg-red-600 px-2 rounded-full font-semibold">Closed</p>`;
 
   modalContainer.style.display = "flex";
   modalContainer.innerHTML = `
@@ -243,9 +242,6 @@ let statusBadge =
         <p>${item.createdAt}</p>
     </div>
     
-
-
-
   <div id="cardsLables" class="flex flex-wrap gap-1 mt-3">
                     ${item.labels
                       .map((label) => {
@@ -300,9 +296,8 @@ let statusBadge =
   </div>
 `;
 
-
-    // close when clicking outside
-  modalContainer.onclick = function(e) {
+  // close when clicking outside
+  modalContainer.onclick = function (e) {
     if (e.target === modalContainer) {
       closeModal();
     }
@@ -310,11 +305,8 @@ let statusBadge =
 }
 
 // close function
-function closeModal(){
+function closeModal() {
   const modalContainer = document.getElementById("modalContainer");
   modalContainer.style.display = "none";
   modalContainer.innerHTML = "";
 }
-
-
-  
