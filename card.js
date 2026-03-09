@@ -27,8 +27,6 @@ async function fetchData() {
 }
 fetchData();
 
-
-
 function showJobCards(category) {
   const cardContainer = document.getElementById("cardContainer");
   const jobCount = document.getElementById("jobCount");
@@ -51,7 +49,7 @@ function showJobCards(category) {
     const div = document.createElement("div");
 
     div.innerHTML = `
-    <div class="border-t-3 ${
+    <div onclick="showModal(${item.id})" class="border-t-3 ${
       item.priority === "low" ? "border-violet-500" : "border-green-500"
     } rounded-md shadow-sm bg-white">
       <div class="p-4 min-h-[230px] flex flex-col justify-between">
@@ -117,11 +115,6 @@ function showJobCards(category) {
     cardContainer.appendChild(div);
   });
 }
-
-
-
-
-
 
 
 // add search function--------------------------------------------------------------------------------------------------------------------------------
@@ -145,9 +138,10 @@ function handleSearch() {
   jobCount.innerText = filtered.length;
 
   filtered.forEach((item) => {
-    const div = document.createElement("div");
+  const div = document.createElement("div");
+  
    div.innerHTML = `
-    <div class="border-t-3 ${
+    <div onclick="showModal(${item.id})"  class="border-t-3 ${
       item.priority === "low" ? "border-violet-500" : "border-green-500"
     } rounded-md shadow-sm bg-white">
       <div class="p-4 min-h-[230px] flex flex-col justify-between">
@@ -213,8 +207,6 @@ function handleSearch() {
   });
 }
 
-
-
 // if press enter key (optional)
     document.getElementById("searchInput").addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
@@ -224,9 +216,39 @@ function handleSearch() {
 
 
 
+// function for modal
+async function showModal(id) {
+  let res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
+  let data = await res.json();
+  let item = data.data;
+  
+
+  const modalContainer = document.getElementById("modalContainer");
+
+  modalContainer.style.display = "flex";
+  modalContainer.innerHTML = `
+    <div class="modal-box">
+      <h1>${item.title}</h1>
+      <p>${item.description}</p>
+      <button onclick="closeModal()" class="px-2 py-1 right-0 text-white bg-red-500 rounded-md">Close</button>
+    </div>
+  `;
 
 
+    // close when clicking outside
+  modalContainer.onclick = function(e) {
+    if (e.target === modalContainer) {
+      closeModal();
+    }
+  };
+}
+
+// close function
+function closeModal(){
+  const modalContainer = document.getElementById("modalContainer");
+  modalContainer.style.display = "none";
+  modalContainer.innerHTML = "";
+}
 
 
-
-
+  
