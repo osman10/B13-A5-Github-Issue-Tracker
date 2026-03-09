@@ -38,9 +38,9 @@ function showJobCards(category) {
   if (category === "all") {
     filteredData = allIssues;
   } else if (category === "open") {
-    filteredData = allIssues.filter((item) => item.priority !== "low");
+    filteredData = allIssues.filter((item) => item.status !== "closed");
   } else if (category === "close") {
-    filteredData = allIssues.filter((item) => item.priority === "low");
+    filteredData = allIssues.filter((item) => item.status === "closed");
   }
 
   jobCount.innerText = filteredData.length;
@@ -50,7 +50,7 @@ function showJobCards(category) {
 
     div.innerHTML = `
     <div onclick="showModal(${item.id})" class="border-t-3 ${
-      item.priority === "low" ? "border-violet-500" : "border-green-500"
+      item.status === "closed" ? "border-violet-500" : "border-green-500"
     } rounded-md shadow-sm bg-white">
       <div class="p-4 min-h-[230px] flex flex-col justify-between">
 
@@ -222,17 +222,83 @@ async function showModal(id) {
   let data = await res.json();
   let item = data.data;
   
-
   const modalContainer = document.getElementById("modalContainer");
+
+  
+let statusBadge =
+  item.status?.toLowerCase().trim() === "open"
+    ? `<p class="text-white bg-green-600 px-2 rounded-full font-semibold">Open</p>`
+    : `<p class="text-white bg-red-600 px-2 rounded-full font-semibold">Closed</p>`;
+
+
 
   modalContainer.style.display = "flex";
   modalContainer.innerHTML = `
-    <div class="modal-box">
-      <h1>${item.title}</h1>
-      <p>${item.description}</p>
-      <button onclick="closeModal()" class="px-2 py-1 right-0 text-white bg-red-500 rounded-md">Close</button>
+  <div class="modal-box max-w-[700px] p-8 bg-white rounded-2xl">
+    <h1 class="text-2xl font-bold mb-3 ">${item.title}</h1>
+
+    <div class="flex gap-2 text-gray-400 mb-6">
+        ${statusBadge}
+        <p><span class="text-[10px]"><i class="fa-solid fa-circle"></i></span>Opened by ${item.author}<span class="text-[10px]"><i class="fa-solid fa-circle"></i></span></p>
+        <p>${item.createdAt}</p>
     </div>
-  `;
+    
+
+
+
+  <div id="cardsLables" class="flex flex-wrap gap-1 mt-3">
+                    ${item.labels
+                      .map((label) => {
+                        if (label === "bug") {
+                          return `<button class="bg-red-200 text-red-500 px-1.5 py-1 rounded-full text-sm"><i class="fa-solid fa-bug"></i> bug</button>`;
+                        }
+
+                        if (label === "help wanted") {
+                          return `<button class="bg-yellow-200 text-yellow-600 px-1.5 py-1 rounded-full text-sm"><i class="fa-solid fa-helicopter-symbol"></i> help wanted</button>`;
+                        }
+
+                        if (label === "enhancement") {
+                          return `<button class="bg-green-200 text-green-600 px-1.5 py-1 rounded-full text-sm"><i class="fa-solid fa-clover"></i> enhancement</button>`;
+                        }
+
+                        if (label === "good first issue") {
+                          return `<button class="bg-blue-200 text-blue-600 px-1.5 py-1 rounded-full text-sm"><i class="fa-brands fa-gg"></i> good first issue</button>`;
+                        }
+                      })
+                      .join("")}
+            </div>
+
+    <p class="text-gray-400 mt-4 mb-4">${item.description}</p>
+
+    <div class="flex p-3 rounded-md bg-gray-100 mb-5">
+      <div class="flex-1 gap-2">
+        <p class="text-gray-400 mb-2">Assignee:</p>
+        <p class="font-semibold">${item.assignee}</p>
+      </div>
+      <div class="flex-1 gap-2">
+        <p class="text-gray-400 mb-2">Priority:</p>
+          <span class="px-5 py-0.5 font-semibold rounded-full uppercase
+          ${
+            item.priority === "low"
+              ? "bg-gray-600 text-white"
+              : item.priority === "medium"
+                ? "bg-yellow-600 text-white"
+                : "bg-red-600 text-white"
+          }">
+          ${item.priority}
+          </span>
+      </div>
+    </div>
+
+  <div class="flex justify-end">
+    <button onclick="closeModal()" class="px-4 py-2  right-0 text-white bg-violet-600 rounded-md">
+      Close
+    </button>
+  </div>
+
+
+  </div>
+`;
 
 
     // close when clicking outside
